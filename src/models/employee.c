@@ -3,11 +3,12 @@
 #include "string.h"
 #include "stdio.h"
 
-Employee* crete_employee(int64_t id, const char* name, unsigned status) {
+Employee* create_employee(int64_t id, const char* name, unsigned status) {
     // allocating memory for Employee
     Employee *employee = malloc(sizeof(Employee));
     if (employee == NULL) {
         printf("Malloc failed");
+        return NULL;
     }
     // setting the id and active status of the employee
     employee->id = id;
@@ -16,6 +17,7 @@ Employee* crete_employee(int64_t id, const char* name, unsigned status) {
     if (employee->name == NULL) {
         free(employee);
         printf("Malloc failed");
+        return NULL;
     }
     // setting the name of the employee
     strcpy(employee->name, name);
@@ -34,7 +36,7 @@ void set_name(Employee *employee, const char* name) {
         return;
     }
     // just copying the new name to the given employee's name
-    strcpy(employee->name, name);
+    strncpy(employee->name, name, strlen(employee->name));
 }
 void set_status(Employee *employee, unsigned status) {
     // validating the arguments
@@ -61,7 +63,10 @@ void employee_free(Employee *employee) {
         return;
     }
     // freeing the memory allocated for the employee
+    free(employee->name);
+    employee->name = NULL;
     free(employee);
+    employee = NULL;
 
 }
 
