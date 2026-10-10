@@ -1,7 +1,7 @@
 #include "include/models/employee.h"
-#include "stdlib.h"
-#include "string.h"
-#include "stdio.h"
+#include <stdlib.h>
+#include <string.h>
+#include <stdio.h>
 
 Employee* create_employee(int64_t id, const char* name, unsigned status) {
     // allocating memory for Employee
@@ -25,18 +25,26 @@ Employee* create_employee(int64_t id, const char* name, unsigned status) {
 
 }
 
-void set_name(Employee *employee, const char* name) {
+int set_name(Employee *employee, const char* name) {
     // validating the arguments
     if (employee == NULL) {
         printf("The given employee is invalid!");
-        return;
+        return 0;
     }
     if (name == NULL) {
         printf("The given name is invalid!");
-        return;
+        return 0;
+    }
+    free(employee->name);
+    employee->name = NULL;
+    employee->name = malloc(strlen(name) + 1);
+    if (employee->name == NULL) {
+        printf("Malloc failed");
+        return 0;
     }
     // just copying the new name to the given employee's name
-    strncpy(employee->name, name, strlen(employee->name));
+    strcpy(employee->name, name);
+    return 1;
 }
 void set_status(Employee *employee, unsigned status) {
     // validating the arguments
