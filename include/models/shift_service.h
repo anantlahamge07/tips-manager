@@ -1,6 +1,8 @@
 #ifndef EMPLOYEE_SERVICE_H
 #define EMPLOYEE_SERVICE_H
 
+#include "stdbool.h"
+
 typedef struct {
     Shift *data;
     int size;
@@ -17,7 +19,7 @@ bool add_shift(Shift *shifts, Shift* shift);
 
 Shift* find_by_id(int64_t id);
 
-bool remove(Shift *shift);
+bool update_tips(Shifts *shifts, int64_t id, double total_tips);
 
 void destroy(Shifts *shifts);
 
