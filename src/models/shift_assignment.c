@@ -31,3 +31,9 @@ double get_hours_worked(ShiftAssignment* shift_assignment) {
     double seconds_diff = difftime(shift_assignment->end_time, shift_assignment->start_time);
     return seconds_diff/3600.0;
 }
+
+
+void free_shift_assignment(ShiftAssignment* shift_assignment) {
+    free(shift_assignment);
+    shift_assignment = NULL;
+}

@@ -21,6 +21,8 @@ void set_assignment_times(ShiftAssignment* shift_assignment, time_t start_time, 
 
 double get_hours_worked(ShiftAssignment* shift_assignment);
 
+void free_shift_assignment(ShiftAssignment* shift_assignment);
+
 
 #endif
  
