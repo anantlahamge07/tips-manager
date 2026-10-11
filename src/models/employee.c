@@ -3,6 +3,7 @@
 #include <string.h>
 #include <stdio.h>
 
+// TODO add the edge case for invalid name
 Employee* create_employee(int64_t id, const char* name, unsigned status) {
     // allocating memory for Employee
     Employee *employee = malloc(sizeof(Employee));
@@ -24,7 +25,7 @@ Employee* create_employee(int64_t id, const char* name, unsigned status) {
     return employee;
 
 }
-
+// TODO fixme
 int set_name(Employee *employee, const char* name) {
     // validating the arguments
     if (employee == NULL) {
