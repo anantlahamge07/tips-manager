@@ -1,0 +1,28 @@
+#include "shift.h"
+#include <stdlib.h>
+#include <stdio.h>
+
+void set_tips(Shift *shift, double tips) {
+    if (tips < 0) {
+        return;
+    }
+    if (shift == NULL) {
+        return;
+    }
+    shift->total_tips = tips;
+}
+
+Shift* create_shift(time_t start_time, time_t end_time, double total_tips) {
+    Shift *shift = (Shift*) malloc(sizeof(Shift));
+    if (shift == NULL) {
+        return NULL;
+    }
+    shift->total_tips = total_tips;
+    shift->start_time = start_time;
+    shift->end_time = end_time;
+    return shift;
+}
+
+bool set_times(Shift *shift, time_t start_time, time_t end_time);
+
+void destroy(Shift *shift);
