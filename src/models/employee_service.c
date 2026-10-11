@@ -32,6 +32,7 @@ bool add_employee(Employees *employees, Employee *employee) {
     if (find_by_id(employees, employee->id) != NULL) {
         return false;
     }
+    // TODO FIX ME
     if (is_full(employees)) {
         employees->capacity *= 2;
         employees->data = (Employee*) realloc(employees->data, employees->capacity * sizeof(Employee));
@@ -49,7 +50,7 @@ bool add_employee(Employees *employees, Employee *employee) {
 }
 // this methods returns an employee with the given id
 Employee* employee_find_by_id(Employees *employees, int64_t id) {
-    if (id < 0) {
+    if (id < 0 || employees == NULL) {
         return NULL;
     }
     for (size_t i = 0; i < employees->size; i++)

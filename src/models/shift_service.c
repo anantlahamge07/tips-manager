@@ -36,6 +36,7 @@ bool add_shift(Shifts *shifts, Shift *shift) {
     if (find_by_id(shifts, shift->id) != NULL) {
         return false;
     }
+    // TODO FIX ME
     if (is_full(shifts)) {
         shifts->capacity *= 2;
         shifts->data = (Shift*) realloc(shifts->data, shifts->capacity * sizeof(shift));
@@ -52,7 +53,7 @@ bool add_shift(Shifts *shifts, Shift *shift) {
 }
 
 Shift* shift_find_by_id(Shifts* shifts, int64_t id) {
-    if (id < 0) {
+    if (id < 0 || shifts == NULL) {
         return NULL;
     }
     for (size_t i = 0; i < shifts->size; i++)

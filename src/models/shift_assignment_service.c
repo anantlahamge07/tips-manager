@@ -25,14 +25,8 @@ bool init(assignments *assignments, Shifts* shifts, Employees* employees, int ca
     if (capacity < 0) {
         return false;
     }
-    assignments->employee_service = (Employees*) malloc(capacity * sizeof(Employees));
-    if (assignments->employee_service == NULL) {
-        return false;
-    }
-    assignments->shift_service = (Shifts*) malloc(capacity * sizeof(Shifts));
-    if (assignments->shift_service == NULL) {
-        return false;
-    }
+    assignments->employee_service = employees;
+    assignments->shift_service = shifts;
     assignments->data = (ShiftAssignment*) malloc(capacity * sizeof(ShiftAssignment));
     if (assignments->data == NULL) {
         return false;
@@ -59,9 +53,10 @@ bool add_service(assignments *assignments, ShiftAssignment* shift_assignment) {
     if (shift_assignment->start_time < shift->start_time || shift_assignment->end_time > shift->end_time) {
         return false;
     }
+    // TODO FIX ME
     if (is_full(assignments)) {
         assignments->capacity *= 2;
-        assignments->data = (Shift*) realloc(assignments->data, assignments->capacity * sizeof(shift_assignment));
+        assignments->data = (ShiftAssignment*) realloc(assignments->data, assignments->capacity * sizeof(ShiftAssignment));
         if (assignments->data == NULL) {
             return false;
         }
@@ -76,7 +71,7 @@ bool add_service(assignments *assignments, ShiftAssignment* shift_assignment) {
 }
 
 ShiftAssignment* find_by_id(assignments *assignments, int64_t id) {
-    if (id < 0) {
+    if (id < 0 || assignments == NULL) {
         return NULL;
     }
     for (size_t i = 0; i < assignments->size; i++)
@@ -88,6 +83,15 @@ ShiftAssignment* find_by_id(assignments *assignments, int64_t id) {
     return NULL;
 }
 
+// TODO: implement me
 ShiftAssignment find_by_shift(assignments *assignments, int64_t shift_id) {}
 
-void destroy(assignments *assignments);
+void destroy(assignments *assignments) {
+    if (assignments == NULL) {
+        return;
+    }
+    free(assignments->data);
+    assignments->data;
+    free(assignments);
+    assignments = NULL;
+}
