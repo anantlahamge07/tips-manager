@@ -15,7 +15,7 @@ void init(Employees *employees, int capacity);
 
 bool add_employee(Employees *employees, Employee *employee);
 
-Employee* find_by_id(Employees *employees, int64_t id);
+Employee* employee_find_by_id(Employees *employees, int64_t id);
 
 bool remove(Employees *employees, int64_t id);
 

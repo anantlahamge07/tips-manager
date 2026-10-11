@@ -1,5 +1,5 @@
-#ifndef EMPLOYEE_SERVICE_H
-#define EMPLOYEE_SERVICE_H
+#ifndef SHIFT_SERVICE_H
+#define SHIFT_SERVICE_H
 
 #include "stdbool.h"
 
@@ -17,7 +17,7 @@ void init(Shifts *shifts, int capacity);
 
 bool add_shift(Shift *shifts, Shift* shift);
 
-Shift* find_by_id(int64_t id);
+Shift* shift_find_by_id(Shifts* shifts, int64_t id);
 
 bool update_tips(Shifts *shifts, int64_t id, double total_tips);
 

@@ -48,7 +48,7 @@ bool add_employee(Employees *employees, Employee *employee) {
 
 }
 // this methods returns an employee with the given id
-Employee* find_by_id(Employees *employees, int64_t id) {
+Employee* employee_find_by_id(Employees *employees, int64_t id) {
     if (id < 0) {
         return NULL;
     }

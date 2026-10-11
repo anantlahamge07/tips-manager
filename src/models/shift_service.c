@@ -51,7 +51,7 @@ bool add_shift(Shifts *shifts, Shift *shift) {
     return true;
 }
 
-Shift* find_by_id(Shifts* shifts, int64_t id) {
+Shift* shift_find_by_id(Shifts* shifts, int64_t id) {
     if (id < 0) {
         return NULL;
     }

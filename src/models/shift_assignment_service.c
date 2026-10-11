@@ -5,31 +5,58 @@
 #include "shift_assignment_service.h"
 
 bool is_full(assignments *assignments) {
+    if (assignments == NULL) {
+        return false;
+    }
     return assignments->size == assignments->capacity;
 }
 
 bool is_empty(assignments *assignments) {
+    if (assignments == NULL) {
+        return true;
+    }
     return assignments->size == 0;
 }
 
-void init(assignments *assignments, int capacity) {
+bool init(assignments *assignments, Shifts* shifts, Employees* employees, int capacity) {
+    if (assignments == NULL || shifts == NULL || employees == NULL) {
+        return false;
+    }
     if (capacity < 0) {
-        return;
+        return false;
+    }
+    assignments->employee_service = (Employees*) malloc(capacity * sizeof(Employees));
+    if (assignments->employee_service == NULL) {
+        return false;
+    }
+    assignments->shift_service = (Shifts*) malloc(capacity * sizeof(Shifts));
+    if (assignments->shift_service == NULL) {
+        return false;
     }
     assignments->data = (ShiftAssignment*) malloc(capacity * sizeof(ShiftAssignment));
     if (assignments->data == NULL) {
-        printf("malloc failed!");
-        return;
+        return false;
     }
     assignments->capacity = capacity;
     assignments->size = 0;
+    return true;
 }
 
 bool add_service(assignments *assignments, ShiftAssignment* shift_assignment) {
     if (shift_assignment == NULL || assignments == NULL) {
         return false;
     }
-    if (find_by_id(assignments, shift_assignment->id) != NULL) {
+    if (employee_find_by_id(assignments->employee_service, shift_assignment->employee_id) == NULL) {
+        return false;
+    }
+    if (shift_find_by_id(assignments->shift_service, shift_assignment->shift_id) == NULL) {
+        return false;
+    }
+    if (find_by_id(assignments, shift_assignment->id) == NULL) {
+        return false;
+    }
+    Shift* shift = shift_find_by_id(assignments->shift_service, shift_assignment->shift_id);
+    if (shift_assignment->start_time < shift->start_time || shift_assignment->end_time > shift->end_time) {
         return false;
     }
     if (is_full(assignments)) {
@@ -48,8 +75,19 @@ bool add_service(assignments *assignments, ShiftAssignment* shift_assignment) {
 
 }
 
-ShiftAssignment* find_by_id(assignments *assignments, int64_t id);
+ShiftAssignment* find_by_id(assignments *assignments, int64_t id) {
+    if (id < 0) {
+        return NULL;
+    }
+    for (size_t i = 0; i < assignments->size; i++)
+    {
+        if (assignments->data[i].id == id) {
+            return &assignments->data[i];
+        }
+    }
+    return NULL;
+}
 
-ShiftAssignment find_by_shift(assignments *assignments, int64_t shift_id);
+ShiftAssignment find_by_shift(assignments *assignments, int64_t shift_id) {}
 
 void destroy(assignments *assignments);
