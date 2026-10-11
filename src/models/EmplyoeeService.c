@@ -46,7 +46,7 @@ bool add_employee(Employees *employees, Employee *employee) {
     return true;
 
 }
-
+// this methods returns an employee with the given id
 Employee* find_by_id(Employees *employees, int64_t id) {
     if (id < 0) {
         return NULL;
@@ -61,13 +61,24 @@ Employee* find_by_id(Employees *employees, int64_t id) {
     
 }
 
-bool remove(Employees *employees, Employee *employee) {
+// deactivating the employee, who quit 
+bool remove(Employees *employees, int64_t id) {
     if (is_empty(employees)) {
         return false;
     }
+    Employee *employee = find_by_id(employees, id);
+    if (employee == NULL) {
+        return false;
+    }
+    employee->status = 0;
+    return true;
 
 }
 
-void destroy() {
-
+// freeing the allocated memory for the employee's collections
+void destroy(Employees *employees) {
+    free(employees->data);
+    employees->data = NULL;
+    free(employees);
+    employees = NULL;
 }
