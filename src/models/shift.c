@@ -1,6 +1,7 @@
 #include "shift.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include "shift_service.h"
 
 void set_tips(Shift *shift, double tips) {
     if (tips < 0) {
@@ -12,7 +13,7 @@ void set_tips(Shift *shift, double tips) {
     shift->total_tips = tips;
 }
 
-Shift* create_shift(time_t start_time, time_t end_time, double total_tips) {
+Shift* create_shift(int64_t id, time_t start_time, time_t end_time, double total_tips) {
     Shift *shift = (Shift*) malloc(sizeof(Shift));
     if (shift == NULL) {
         return NULL;
@@ -20,6 +21,7 @@ Shift* create_shift(time_t start_time, time_t end_time, double total_tips) {
     if (end_time < start_time) {
         return NULL;
     }
+    shift->id = id;
     shift->total_tips = total_tips;
     shift->start_time = start_time;
     shift->end_time = end_time;

@@ -1,6 +1,6 @@
 #include "stdint.h"
 
-#ifndef EMPLYOEE_H
+#ifndef EMPLOYEE_H
 #define EMPLOYEE_H
 
 typedef struct {

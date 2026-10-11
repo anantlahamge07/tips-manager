@@ -4,6 +4,7 @@
 #include <stdbool.h>
 
 typedef struct {
+ int64_t id;
     time_t start_time;
     time_t end_time;
     double total_tips;
