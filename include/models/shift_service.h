@@ -7,13 +7,13 @@ typedef struct {
     int capacity;
 } Shifts;
 
-bool is_full(Shifts *shifts) {
-    return shifts->size == shifts->capacity;
-}
+bool is_full(Shifts *shifts);
 
-void init();
+bool is_empty(Shifts *shifts);
 
-bool add_employee(Shift *shift);
+void init(Shifts *shifts, int capacity);
+
+bool add_shift(Shift *shifts, Shift* shift);
 
 Shift* find_by_id(int64_t id);
 
