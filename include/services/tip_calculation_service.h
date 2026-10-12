@@ -34,7 +34,7 @@ typedef struct {
 typedef struct {
     Employees* employees;
     Shifts* shifts;
-    ShiftAssignment* shift_assignment;
+    assignments* shift_assignments;
 } CalculationService;
 
 bool init(CalculationService* calculation_service, Employees* employees, Shifts* shifts, ShiftAssignment* shift_assignment);

@@ -20,7 +20,7 @@ typedef struct {
     Shifts* shift_service;
 } Allocation;
 
-Allocation* create_allocation(int64_t id, int64_t employee_id, int64_t shift_id, int64_t amount_cents);
+Allocation* create_allocation(int64_t id, int64_t employee_id, int64_t shift_id, int64_t amount_cents, Employees* employees, Shifts* shifts);
 
 void set_amount_cents(Allocation* allocation, int64_t amount);
 

@@ -10,16 +10,16 @@ bool init(CalculationService* calculation_service, Employees* employees, Shifts*
         || shifts == NULL 
         || shift_assignment == NULL) return false;
         calculation_service->employees = employees;
-        calculation_service->shift_assignment = shift_assignment;
+        calculation_service->shift_assignments = shift_assignment;
         calculation_service->shifts = shifts;
         return  true;
 }
 
 bool validate(CalculationService* calculation_service, int64_t shift_id, DistributionConfig* distribution_config) {
     bool valid_service = (calculation_service != NULL) 
-    || (calculation_service->employees != NULL) 
-    || (calculation_service->shifts != NULL) 
-    || (calculation_service->shift_assignment != NULL);
+    && (calculation_service->employees != NULL) 
+    && (calculation_service->shifts != NULL) 
+    && (calculation_service->shift_assignments != NULL);
     bool valid_shift = shift_find_by_id(calculation_service->shifts, shift_id) != NULL;
     bool valid_config = distribution_config != NULL;
     bool valid_weights = true;
@@ -37,12 +37,20 @@ bool validate(CalculationService* calculation_service, int64_t shift_id, Distrib
 
 bool calculate(CalculationService* calculation_service, int64_t shift_id, DistributionConfig* distribution_config, CalculationResult* calculation_result) {
     if (!validate(calculation_service, shift_id, distribution_config)) return false;
-    // if (distribution_config->policy == WEIGHTED) {
-
-    // }
+    Shift* shift = shift_find_by_id(calculation_service->shifts, shift_id);
+    if (distribution_config->policy == WEIGHTED) {
+        
+    }
+     
 
 
 }
 
 
-void destroy(CalculationService* calculation_service);
+void destroy(CalculationService* calculation_service) {
+    if (calculation_service == NULL) {
+        return;
+    }
+    free(calculation_service);
+    calculation_service = NULL;
+}

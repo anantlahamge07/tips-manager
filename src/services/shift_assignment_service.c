@@ -3,22 +3,24 @@
 #include <stdio.h>
 #include <time.h>
 #include "shift_assignment_service.h"
+#include "shift_assignment.h"
 
-bool is_full(assignments *assignments) {
+
+bool is_full(Assignments *assignments) {
     if (assignments == NULL) {
         return false;
     }
     return assignments->size == assignments->capacity;
 }
 
-bool is_empty(assignments *assignments) {
+bool is_empty(Assignments *assignments) {
     if (assignments == NULL) {
         return true;
     }
     return assignments->size == 0;
 }
 
-bool init(assignments *assignments, Shifts* shifts, Employees* employees, int capacity) {
+bool init(Assignments *assignments, Shifts* shifts, Employees* employees, int capacity) {
     if (assignments == NULL || shifts == NULL || employees == NULL) {
         return false;
     }
@@ -36,7 +38,7 @@ bool init(assignments *assignments, Shifts* shifts, Employees* employees, int ca
     return true;
 }
 
-bool add_service(assignments *assignments, ShiftAssignment* shift_assignment) {
+bool add_service(Assignments *assignments, ShiftAssignment* shift_assignment) {
     if (shift_assignment == NULL || assignments == NULL) {
         return false;
     }
@@ -70,7 +72,7 @@ bool add_service(assignments *assignments, ShiftAssignment* shift_assignment) {
 
 }
 
-ShiftAssignment* find_by_id(assignments *assignments, int64_t id) {
+ShiftAssignment* find_by_id(Assignments *assignments, int64_t id) {
     if (id < 0 || assignments == NULL) {
         return NULL;
     }
@@ -84,9 +86,37 @@ ShiftAssignment* find_by_id(assignments *assignments, int64_t id) {
 }
 
 // TODO: implement me
-ShiftAssignment find_by_shift(assignments *assignments, int64_t shift_id) {}
+Assignments* find_by_shift(Assignments *assignments, int64_t shift_id) {
+    if (assignments == NULL) {
+        return NULL;
+    }
+    Assignments* assignments_ = malloc(sizeof(Assignments));
+    if (assignments_ == NULL){
+        return NULL;
+    }
+    assignments_->data = malloc(assignments->capacity * sizeof(ShiftAssignment));
+    
+    if (assignments_->data == NULL) {
+        return NULL;
+    }
+    assignments_->capacity = assignments->capacity;
+    assignments_->employee_service = assignments->employee_service;
+    assignments_->shift_service = assignments->shift_service;
+    assignments_->size = 0;
+    int j = 0;
+    for (size_t i = 0; i < assignments->size; i++)
+    {
+        if (assignments->data[i].shift_id == shift_id) {
+            assignments_->data[j] = assignments->data[i];
+            j++;
+            assignments_->size += 1;
+        }
+    }
+    return assignments_;
+    
+}
 
-void destroy(assignments *assignments) {
+void destroy(Assignments *assignments) {
     if (assignments == NULL) {
         return;
     }
