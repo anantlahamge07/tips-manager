@@ -3,9 +3,11 @@
 
 
 #include "employee.h"
+#include "employee_service.h"
 #include "tip_allocation.h"
 #include "shift_assignment_service.h"
 #include <stddef.h>
+#include <stdbool.h>
 
 enum Policy {
     STANDARD,
@@ -20,7 +22,7 @@ typedef struct {
 typedef struct {
     enum Policy policy;
     RoleWeight* role_weight;
-    size_t role_weight;
+    size_t count;
 } DistributionConfig;
 
 typedef struct {
@@ -34,5 +36,14 @@ typedef struct {
     Shifts* shifts;
     ShiftAssignment* shift_assignment;
 } CalculationService;
+
+bool init(CalculationService* calculation_service, Employees* employees, Shifts* shifts, ShiftAssignment* shift_assignment);
+
+bool validate(CalculationService* calculation_service, int64_t shift_id, DistributionConfig* distribution_config);
+
+CalculationResult* calculate(CalculationService* calculation_service, int64_t shift_id, DistributionConfig* distribution_config, CalculationResult* calculation_result);
+
+
+void destroy(CalculationService* calculation_service);
 
 #endif
