@@ -1,2 +1,48 @@
 #include "tip_calculation_service.h"
+#include "shift_service.h"
 
+
+
+
+bool init(CalculationService* calculation_service, Employees* employees, Shifts* shifts, ShiftAssignment* shift_assignment) {
+    if (calculation_service == NULL 
+        || employees == NULL 
+        || shifts == NULL 
+        || shift_assignment == NULL) return false;
+        calculation_service->employees = employees;
+        calculation_service->shift_assignment = shift_assignment;
+        calculation_service->shifts = shifts;
+        return  true;
+}
+
+bool validate(CalculationService* calculation_service, int64_t shift_id, DistributionConfig* distribution_config) {
+    bool valid_service = (calculation_service != NULL) 
+    || (calculation_service->employees != NULL) 
+    || (calculation_service->shifts != NULL) 
+    || (calculation_service->shift_assignment != NULL);
+    bool valid_shift = shift_find_by_id(calculation_service->shifts, shift_id) != NULL;
+    bool valid_config = distribution_config != NULL;
+    bool valid_weights = true;
+    if (distribution_config->policy == WEIGHTED) {
+        for (size_t i = 0; i < distribution_config->count; i++)
+        {
+            if (distribution_config->role_weight[i].weight < 0.0) {
+                valid_weights = false;
+            }
+        }
+        
+    }
+    return valid_service && valid_shift && valid_config && valid_weights;
+}
+
+bool calculate(CalculationService* calculation_service, int64_t shift_id, DistributionConfig* distribution_config, CalculationResult* calculation_result) {
+    if (!validate(calculation_service, shift_id, distribution_config)) return false;
+    // if (distribution_config->policy == WEIGHTED) {
+
+    // }
+
+
+}
+
+
+void destroy(CalculationService* calculation_service);

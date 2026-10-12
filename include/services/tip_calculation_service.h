@@ -41,8 +41,7 @@ bool init(CalculationService* calculation_service, Employees* employees, Shifts*
 
 bool validate(CalculationService* calculation_service, int64_t shift_id, DistributionConfig* distribution_config);
 
-CalculationResult* calculate(CalculationService* calculation_service, int64_t shift_id, DistributionConfig* distribution_config, CalculationResult* calculation_result);
-
+bool calculate(CalculationService* calculation_service, int64_t shift_id, DistributionConfig* distribution_config, CalculationResult* calculation_result);
 
 void destroy(CalculationService* calculation_service);
 
