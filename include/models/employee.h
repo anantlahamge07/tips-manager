@@ -3,11 +3,18 @@
 #ifndef EMPLOYEE_H
 #define EMPLOYEE_H
 
+enum Role {
+    BARISTA,
+    WAITER,
+    RUNNER,
+    WINDOW
+};
+
 typedef struct {
     int64_t id;
     const char *name;
     unsigned status;
-
+    enum Role role;
 } Employee;
 
 Employee* create_employee(int64_t id, const char* name, unsigned status);

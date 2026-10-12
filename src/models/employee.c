@@ -4,7 +4,7 @@
 #include <stdio.h>
 
 // TODO add the edge case for invalid name
-Employee* create_employee(int64_t id, const char* name, unsigned status) {
+Employee* create_employee(int64_t id, const char* name, unsigned status, enum Role role) {
     // allocating memory for Employee
     Employee *employee = malloc(sizeof(Employee));
     if (employee == NULL) {
@@ -22,6 +22,7 @@ Employee* create_employee(int64_t id, const char* name, unsigned status) {
     }
     // setting the name of the employee
     strcpy(employee->name, name);
+    employee->role = role;
     return employee;
 
 }

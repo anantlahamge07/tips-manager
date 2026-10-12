@@ -1,2 +1,6 @@
 
 
+#ifndef TIP_CALCULATION_SERVICE_H
+#define TIP_CALCULATION_SERVICE_H
+
+#endif
