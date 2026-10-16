@@ -34,10 +34,10 @@ typedef struct {
 typedef struct {
     Employees* employees;
     Shifts* shifts;
-    assignments* shift_assignments;
+    Assignments* shift_assignments;
 } CalculationService;
 
-bool init(CalculationService* calculation_service, Employees* employees, Shifts* shifts, ShiftAssignment* shift_assignment);
+bool init(CalculationService* calculation_service, Employees* employees, Shifts* shifts, Assignments* shift_assignment);
 
 bool validate(CalculationService* calculation_service, int64_t shift_id, DistributionConfig* distribution_config);
 
